@@ -9,12 +9,32 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    String  @id @default(uuid())
-  email String  @unique
-  name  String?
+model Person {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  name     String?
+  password String?
+
+  ParkingLot   ParkingLot? @relation(fields: [parkingLotId], references: [id])
+  parkingLotId String?
+
+  startTime DateTime?
+
+  balance Int @default(0)
+}
+
+model ParkingLot {
+  id        String   @id @default(uuid())
+  name      String
+  users     Person[]
+  capacity  Int
+  available Boolean
+  used      Int
+  address   String   @default("142, Velachery Main Rd, Indira Gandhi Nagar, Velachery, Chennai, Tamil Nadu")
+
+  price Int @default(40)
 }
