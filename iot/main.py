@@ -2,14 +2,10 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 from time import sleep
 
-from gpiozero import Servo
-
-servo = Servo(25)
 
 led = 40
 
 GPIO.setwarnings(False)    # Ignore warning for now
-GPIO.setmode(GPIO.BOARD)
 GPIO.setup(led, GPIO.OUT)
 GPIO.output(led, GPIO.LOW)
 reader = SimpleMFRC522()
