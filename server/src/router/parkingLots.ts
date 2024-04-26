@@ -28,6 +28,9 @@ parkingLotsRouter.post("/car-in", async (req, res) => {
     where: {
       id: parkingLotId,
     },
+    include: {
+      users: true,
+    },
   });
 
   if (!parkingLot) {
@@ -70,6 +73,9 @@ parkingLotsRouter.post("/car-out", async (req, res) => {
     where: {
       id: parkingLotId,
     },
+    include: {
+      users: true,
+    },
   });
 
   if (!parkingLot) {
@@ -79,7 +85,7 @@ parkingLotsRouter.post("/car-out", async (req, res) => {
     });
   }
 
-  await prisma.parkingLot.update({
+  prisma.parkingLot.update({
     where: {
       id: parkingLotId,
     },
